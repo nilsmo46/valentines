@@ -2,6 +2,7 @@ const CORRECT_PASSWORD = "harrier";
 const HER_NAME = "Richaaaa";
 const RELATIONSHIP_START = "2024-02-17";
 const MUSIC_FILE = "music.mp3";
+
 const loveReasons = [
   "You make even ordinary days feel special.",
   "You understand me in ways no one else does.",
@@ -72,10 +73,40 @@ function startCounter() {
   document.getElementById("daysTogether").textContent = diff;
 }
 
-document.getElementById("noBtn").addEventListener("mouseover", e => {
-  e.target.style.transform =
-    `translate(${Math.random()*300-150}px, ${Math.random()*150-75}px)`;
-});
+// Make the "No" button move responsively and work on touch devices.
+const noBtn = document.getElementById("noBtn");
+if (noBtn) {
+  function moveNoBtn() {
+    const btn = noBtn;
+    const container = btn.parentElement || document.body;
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+    const padding = 8;
+    const maxLeft = Math.max(0, containerRect.width - btnRect.width - padding);
+    const maxTop = Math.max(0, containerRect.height - btnRect.height - padding);
+
+    // For mobile keep it inside the .buttons container; for larger screens allow wider movement
+    const left = Math.random() * maxLeft;
+    const top = Math.random() * maxTop;
+
+    btn.style.left = left + "px";
+    btn.style.top = top + "px";
+    btn.style.transform = "translate(0,0)";
+  }
+
+  // Initialize centered position
+  (function initNoBtn(){
+    const c = noBtn.parentElement || document.body;
+    const cRect = c.getBoundingClientRect();
+    const bRect = noBtn.getBoundingClientRect();
+    noBtn.style.left = Math.max(0, (cRect.width - bRect.width) / 2) + 'px';
+    noBtn.style.top = Math.max(0, (cRect.height - bRect.height) / 2) + 'px';
+  })();
+
+  ['mouseover','pointerenter','touchstart','click'].forEach(evt => {
+    noBtn.addEventListener(evt, moveNoBtn, { passive: true });
+  });
+}
 
 function yesClicked() {
   for (let i = 0; i < 80; i++) {

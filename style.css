@@ -20,6 +20,8 @@
       margin-bottom: 20px;
     }
 
+    /* ---------- RESPONSIVE / MOBILE IMPROVEMENTS ---------- */
+    /* Make layout and touch targets friendlier on small screens */
     p {
       font-size: 1.05rem;
       margin-bottom: 20px;
