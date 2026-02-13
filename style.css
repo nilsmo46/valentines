@@ -531,3 +531,34 @@ button {
   50% { transform: translateX(-200%); }
   75% { transform: translateX(-300%); }
 }
+
+#whyLove {
+  background: #fff0f5;
+  border-radius: 30px;
+  padding: 70px 20px;
+  margin: 80px auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+#loveReason {
+  font-size: 1.3rem;
+  margin: 30px 0;
+  min-height: 50px;
+  color: #444;
+  transition: opacity 0.3s ease;
+}
+
+#loveBtn {
+  background: #d6336c;
+  color: white;
+  border: none;
+  padding: 14px 35px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+#loveBtn:hover {
+  transform: scale(1.05);
+}
