@@ -111,6 +111,18 @@ function unlock() {
     document.getElementById("lockScreen").style.display = "none";
     animateName();
     startCounter();
+    // User-initiated action (Unlock) — try to play unmuted now.
+    (async () => {
+      try {
+        music.muted = false;
+        await music.play();
+        playing = !music.paused;
+        const p = document.getElementById('autoplayPrompt'); if (p) p.remove();
+      } catch (e) {
+        // If still blocked, keep muted autoplay running and show prompt
+        tryAutoplay();
+      }
+    })();
   } else {
     document.getElementById("error").style.display = "block";
   }
