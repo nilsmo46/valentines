@@ -285,6 +285,48 @@ button {
   animation: fall 3s linear forwards;
 }
 
+/* ---------- HERO BACKGROUND + ENHANCED MOBILE ---------- */
+/* Use 1.jpg as hero background with readable overlay */
+.hero {
+  background-image: linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.18)), url('1.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #fff;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+/* Improve contrast for elements inside hero */
+.hero .counter, .hero p {
+  color: rgba(255,255,255,0.95);
+}
+
+@media (max-width: 600px) {
+  .hero {
+    background-position: center top;
+    background-size: cover;
+    min-height: 72vh;
+    padding: 28px 16px;
+  }
+
+  .name { font-size: 2rem; line-height: 1.05; }
+  .hero p { font-size: 1rem; }
+  .counter { font-size: 0.95rem; margin-top: 12px; }
+
+  /* Ensure the hero overlay is stronger on very small screens for readability */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.28));
+    pointer-events: none;
+    border-radius: 0;
+  }
+
+  /* Keep text visible above the pseudo overlay */
+  .hero > * { position: relative; z-index: 1; }
+}
+
 @keyframes pulse {
   50% { transform: scale(1.2); }
 }
