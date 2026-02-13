@@ -480,13 +480,23 @@ p {
   margin-top: 20px;
 }
 
-/* ---------- HERO ---------- */
 .hero {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* ensure background is applied last so it isn't overridden earlier */
+  background-image: linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.18)), url('10.jpeg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #fff;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  position: relative;
 }
+
+/* keep hero children above overlay */
+.hero > * { position: relative; z-index: 1; }
 
 .name {
   font-size: 3.8rem;
@@ -517,22 +527,22 @@ p {
 
 /* ---------- SLIDER ---------- */
 .slider {
+  /* container sizing kept minimal; responsive rules live earlier */
   width: 100%;
-  max-width: 800px;
-  margin: 40px auto;
-  overflow: hidden;
-  border-radius: 25px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  max-width: 1000px;
+  margin: 28px auto;
+  overflow: visible;
 }
 
 .slides {
+  /* the responsive, touch-friendly slides are defined earlier; keep flex layout */
   display: flex;
-  width: 400%;
-  animation: slide 16s infinite;
+  gap: 12px;
+  overflow-x: auto;
 }
 
 .slides img {
-  width: 100%;
+  width: auto;
   object-fit: cover;
 }
 
