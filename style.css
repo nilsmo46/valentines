@@ -288,7 +288,7 @@ button {
 /* ---------- HERO BACKGROUND + ENHANCED MOBILE ---------- */
 /* Use 1.jpg as hero background with readable overlay */
 .hero {
-  background-image: linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.18)), url('1.jpg');
+  background-image: linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.18)), url('1.jpeg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -300,6 +300,44 @@ button {
 .hero .counter, .hero p {
   color: rgba(255,255,255,0.95);
 }
+
+/* ---------- RESPONSIVE SLIDER ---------- */
+.slider {
+  width: 100%;
+  overflow: hidden;
+  padding: 12px 0;
+}
+
+.slides {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+
+.slides img {
+  flex: 0 0 85%;
+  width: 85%;
+  height: 56vw; /* keeps aspect ratio on mobile */
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
+  scroll-snap-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
+/* larger screens: show two images side-by-side */
+@media (min-width: 700px) {
+  .slides img { flex: 0 0 48%; width: 48%; height: auto; }
+  .slides { gap: 20px; }
+}
+
+.slides::-webkit-scrollbar { display: none; }
+.slides { -ms-overflow-style: none; scrollbar-width: none; }
+
 
 @media (max-width: 600px) {
   .hero {
