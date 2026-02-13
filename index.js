@@ -140,3 +140,71 @@ loveBtn.addEventListener("click", () => {
     loveReason.style.opacity = 1;
   }, 200);
 });
+
+/* ---------- SIMPLE TOUCH-FRIENDLY SLIDER INIT ---------- */
+function initSlider() {
+  const slides = document.querySelector('.slides');
+  if (!slides) return;
+  const imgs = Array.from(slides.querySelectorAll('img'));
+  const slider = document.querySelector('.slider');
+
+  function resizeImages() {
+    if (window.innerWidth < 700) {
+      imgs.forEach(img => {
+        img.style.flex = '0 0 85%';
+        img.style.width = '85%';
+        img.style.height = Math.round(window.innerWidth * 0.56) + 'px';
+      });
+    } else {
+      imgs.forEach(img => {
+        img.style.flex = '0 0 48%';
+        img.style.width = '48%';
+        img.style.height = 'auto';
+      });
+    }
+  }
+
+  // build dots
+  const dotsWrap = document.createElement('div');
+  dotsWrap.className = 'slider-dots';
+  imgs.forEach((img, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dot';
+    btn.addEventListener('click', () => {
+      const left = img.offsetLeft - (slides.clientWidth - img.clientWidth) / 2;
+      slides.scrollTo({ left, behavior: 'smooth' });
+    });
+    dotsWrap.appendChild(btn);
+  });
+  if (slider) slider.appendChild(dotsWrap);
+
+  function updateActiveDot() {
+    const center = slides.scrollLeft + slides.clientWidth / 2;
+    imgs.forEach((img, i) => {
+      const imgCenter = img.offsetLeft + img.clientWidth / 2;
+      const isActive = Math.abs(center - imgCenter) < img.clientWidth / 2;
+      const dot = dotsWrap.children[i];
+      if (dot) dot.classList.toggle('active', isActive);
+    });
+  }
+
+  slides.addEventListener('scroll', () => {
+    updateActiveDot();
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    resizeImages();
+  });
+
+  // initial setup
+  resizeImages();
+  // scroll to first image centered
+  if (imgs[0]) {
+    const left = imgs[0].offsetLeft - (slides.clientWidth - imgs[0].clientWidth) / 2;
+    slides.scrollTo({ left });
+  }
+  updateActiveDot();
+}
+
+// run after DOM ready (script is deferred so elements exist)
+initSlider();
