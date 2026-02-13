@@ -39,6 +39,67 @@ const music = document.getElementById("bgMusic");
 music.src = MUSIC_FILE;
 let playing = false;
 
+// Improve autoplay behavior: try to play on load, fall back to muted play,
+// and show a small prompt if the browser blocks autoplay with sound.
+music.autoplay = true;
+music.loop = true;
+music.playsInline = true;
+
+async function tryAutoplay() {
+  try {
+    await music.play();
+    playing = !music.paused;
+    return;
+  } catch (err) {
+    // Try muted autoplay (more likely to be allowed)
+    try {
+      music.muted = true;
+      await music.play();
+      playing = !music.paused;
+      // show a subtle prompt to enable sound
+      showEnableSoundPrompt();
+    } catch (err2) {
+      // Autoplay fully blocked — show prompt
+      showEnableSoundPrompt();
+    }
+  }
+}
+
+function showEnableSoundPrompt() {
+  if (document.getElementById('autoplayPrompt')) return;
+  const btn = document.createElement('button');
+  btn.id = 'autoplayPrompt';
+  btn.textContent = 'Tap to enable sound';
+  Object.assign(btn.style, {
+    position: 'fixed',
+    bottom: '18px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    padding: '10px 16px',
+    background: '#d6336c',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '999px',
+    zIndex: 99999,
+    boxShadow: '0 6px 18px rgba(0,0,0,0.2)',
+    cursor: 'pointer'
+  });
+  btn.addEventListener('click', async () => {
+    try {
+      music.muted = false;
+      await music.play();
+      playing = !music.paused;
+      btn.remove();
+    } catch (e) {
+      // ignore
+    }
+  }, { passive: true });
+  document.body.appendChild(btn);
+}
+
+// Try autoplay on load (script is deferred, DOM exists)
+tryAutoplay();
+
 function toggleMusic() {
   playing ? music.pause() : music.play();
   playing = !playing;
