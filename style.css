@@ -1,0 +1,533 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #fff0f5, #ffffff);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: #d6336c;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffe6ee, #ffffff);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+    }
+
+    .heart {
+      font-size: 2rem;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .timeline {
+      display: grid;
+      gap: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .final {
+      background: #fff0f5;
+      border-radius: 20px;
+      padding: 60px 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 30px;
+      background: #d6336c;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #b02555;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      color: #777;
+    }* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg, #fff0f5, #ffffff);
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* ---------- PASSWORD LOCK ---------- */
+#lockScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #fff0f5, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.lock-card {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+  animation: fadeIn 1.5s ease;
+}
+
+.lock-card h1 {
+  font-family: 'Playfair Display', serif;
+  color: #d6336c;
+}
+
+.lock-card input {
+  margin-top: 20px;
+  padding: 14px;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.lock-card button {
+  margin-top: 20px;
+  padding: 14px 30px;
+  background: #d6336c;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+#error {
+  display: none;
+  margin-top: 15px;
+  color: #d6336c;
+}
+
+/* ---------- GLOBAL ---------- */
+section {
+  padding: 80px 20px;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  color: #d6336c;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeIn 2s ease;
+}
+
+.name {
+  font-size: 3.8rem;
+}
+
+.name span {
+  opacity: 0;
+  display: inline-block;
+  animation: reveal 0.5s forwards;
+}
+
+.heart {
+  font-size: 2.5rem;
+  animation: pulse 1.5s infinite;
+}
+
+/* ---------- TIMELINE ---------- */
+.timeline {
+  display: grid;
+  gap: 50px;
+}
+
+.card {
+  background: white;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  transition: 0.4s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+/* ---------- FINAL ---------- */
+.final {
+  background: #fff0f5;
+  border-radius: 30px;
+  padding: 70px 30px;
+}
+
+.buttons {
+  margin-top: 40px;
+  position: relative;
+  height: 80px;
+}
+
+button {
+  padding: 15px 40px;
+  border-radius: 30px;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background: #d6336c;
+  color: white;
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+}
+
+#noBtn {
+  background: #eee;
+  position: absolute;
+}
+
+/* ---------- MUSIC ---------- */
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #d6336c;
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* ---------- CONFETTI ---------- */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.2); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes reveal {
+  to { opacity: 1; }
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg, #fff0f5, #ffffff);
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* ---------- PASSWORD ---------- */
+#lockScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #fff0f5, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.lock-card {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+  animation: fadeIn 1.2s ease;
+}
+
+.lock-card h1 {
+  font-family: 'Playfair Display', serif;
+  color: #d6336c;
+}
+
+.lock-card input {
+  margin-top: 20px;
+  padding: 14px;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+.lock-card button {
+  margin-top: 20px;
+  padding: 14px 30px;
+  background: #d6336c;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+#error {
+  display: none;
+  margin-top: 15px;
+  color: #d6336c;
+}
+
+/* ---------- SECTIONS ---------- */
+section {
+  padding: 80px 20px;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  color: #d6336c;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+  font-size: 3.8rem;
+}
+
+.name span {
+  opacity: 0;
+  display: inline-block;
+  animation: reveal 0.5s forwards;
+}
+
+.heart {
+  font-size: 2.5rem;
+  animation: pulse 1.5s infinite;
+}
+
+/* ---------- COUNTER ---------- */
+.counter {
+  margin-top: 30px;
+  font-size: 1.4rem;
+  color: #555;
+}
+
+.counter span {
+  color: #d6336c;
+  font-weight: 600;
+}
+
+/* ---------- SLIDER ---------- */
+.slider {
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto;
+  overflow: hidden;
+  border-radius: 25px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.slides {
+  display: flex;
+  width: 400%;
+  animation: slide 16s infinite;
+}
+
+.slides img {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* ---------- TIMELINE ---------- */
+.timeline {
+  display: grid;
+  gap: 50px;
+}
+
+.card {
+  background: white;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  transition: 0.4s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+/* ---------- FINAL ---------- */
+.final {
+  background: #fff0f5;
+  border-radius: 30px;
+  padding: 70px 30px;
+}
+
+.buttons {
+  margin-top: 40px;
+  position: relative;
+  height: 80px;
+}
+
+button {
+  padding: 15px 40px;
+  border-radius: 30px;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background: #d6336c;
+  color: white;
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+}
+
+#noBtn {
+  background: #eee;
+  position: absolute;
+}
+
+/* ---------- MUSIC ---------- */
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #d6336c;
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* ---------- CONFETTI ---------- */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes pulse { 50% { transform: scale(1.2); } }
+@keyframes fadeIn { from {opacity:0;transform:translateY(30px);} to {opacity:1;} }
+@keyframes reveal { to { opacity: 1; } }
+
+@keyframes fall {
+  to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes slide {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-100%); }
+  50% { transform: translateX(-200%); }
+  75% { transform: translateX(-300%); }
+}
