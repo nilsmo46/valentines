@@ -109,3 +109,80 @@ loveBtn.addEventListener("click", () => {
     loveReason.style.opacity = 1;
   }, 200);
 });
+
+/* ---------- AUTO-SCROLLING SLIDER (infinite) ---------- */
+(function enableAutoSlider(){
+  const slides = document.querySelector('.slides');
+  if (!slides) return;
+  const imgs = Array.from(slides.querySelectorAll('img'));
+  if (!imgs.length) return;
+
+  const dotsWrap = document.querySelector('.slider-dots') || (() => {
+    const el = document.createElement('div');
+    el.className = 'slider-dots';
+    const container = document.querySelector('.slider') || slides.parentElement;
+    container.appendChild(el);
+    return el;
+  })();
+
+  let current = 0;
+  const INTERVAL = 3500;
+  let timer = null;
+  let paused = false;
+
+  function centerImage(i) {
+    const img = imgs[i];
+    if (!img) return;
+    const left = img.offsetLeft - (slides.clientWidth - img.clientWidth) / 2;
+    slides.scrollTo({ left, behavior: 'smooth' });
+  }
+
+  function updateDots() {
+    Array.from(dotsWrap.children).forEach((d, idx) => d.classList.toggle('active', idx === current));
+  }
+
+  // build dots (once)
+  if (dotsWrap.children.length === 0) {
+    imgs.forEach((img, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'dot';
+      btn.addEventListener('click', () => {
+        current = i;
+        centerImage(current);
+        resetTimer();
+      });
+      dotsWrap.appendChild(btn);
+    });
+  }
+
+  function next() {
+    current = (current + 1) % imgs.length;
+    centerImage(current);
+    updateDots();
+  }
+
+  function resetTimer() {
+    clearTimeout(timer);
+    timer = setTimeout(function step(){ if (!paused) next(); timer = setTimeout(step, INTERVAL); }, INTERVAL);
+  }
+
+  // keep current in sync when user scrolls manually
+  slides.addEventListener('scroll', () => {
+    const center = slides.scrollLeft + slides.clientWidth / 2;
+    let best = 0; let bestDist = Infinity;
+    imgs.forEach((img, i) => {
+      const imgCenter = img.offsetLeft + img.clientWidth / 2;
+      const d = Math.abs(center - imgCenter);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    current = best;
+    updateDots();
+  }, { passive: true });
+
+  // pause while user interacts
+  ['pointerdown','touchstart','mousedown'].forEach(ev => slides.addEventListener(ev, () => { paused = true; clearTimeout(timer); }, { passive: true }));
+  ['pointerup','touchend','mouseleave'].forEach(ev => slides.addEventListener(ev, () => { paused = false; resetTimer(); }, { passive: true }));
+
+  // initial positioning
+  setTimeout(() => { centerImage(0); updateDots(); resetTimer(); }, 120);
+})();
